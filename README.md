@@ -1,37 +1,113 @@
 # vue-vuecmf-dialog
 
-#### 介绍
-基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、还原及弹窗主体自适应屏幕功能
+> 基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、还原及弹窗主体内容自适应屏幕功能
 
-#### 软件架构
-软件架构说明
+- 示例演示： http://www.vuecmf.com
+
+## 安装
+
+``` bash
+# yarn方式安装 vue-vuecmf-dialog
+yarn add vue-vuecmf-dialog
+
+# npm方式安装 vue-vuecmf-dialog
+npm install vue-vuecmf-dialog
+```
+
+###1、先在项目中的main.ts 引入
+```
+import { createApp } from 'vue'
+import App from './App.vue'
+import './registerServiceWorker'
+
+/*导入组件*/
+import VuecmfDialog from "vue-vuecmf-dialog"
+
+createApp(App).use(VuecmfDialog).mount('#app')
+```
+
+## 模板中使用组件
+
+```
+<template>
+  <h3>vuecmf-dialog demo</h3>
+
+  <el-button size="default" type="primary" @click=" showDlg = true " >打开对话框</el-button>
+
+  <vuecmf-dialog :model_value="showDlg" title="标题"  @updateVisible="updateVisible"  @close="close" @toggleScreen="toggleScreen">
+
+    <template #content>
+      <div> 这是一个可以最大化及还原的 对话框</div>
+    </template>
+
+    <template #footer>
+      <el-button type="primary" @click=" showDlg = false ">关闭</el-button>
+    </template>
+
+  </vuecmf-dialog>
 
 
-#### 安装教程
+</template>
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+<script lang="ts">
+import {defineComponent, ref} from 'vue';
 
-#### 使用说明
+export default defineComponent({
+  name: 'App',
+  setup(){
+    const showDlg = ref()
+    showDlg.value = false
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+    const updateVisible = (val:any) => {
+      console.log('val=', val)
+      showDlg.value = val
+    }
 
-#### 参与贡献
+    const close = ():void => {
+       console.log('dialog closed!')
+    }
+    
+    const toggleScreen = (is_max: boolean):void => {
+       console.log('dialog is max:', is_max)
+    }
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+    return {
+     showDlg,
+     updateVisible,
+     close,
+     toggleScreen
+    }
+  }
+});
+</script>
 
+```
+详细使用见 源码中 examples目录中示例
 
-#### 特技
+### 属性说明
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+title： 对话框标题，支持HTML内容
+
+max_screen：是否全屏显示， 默认false
+
+width: 对话框宽度, 默认50%
+
+top：对话框顶部相对于窗口的偏移距离， 默认15vh
+
+model_value：是否显示对话框， 默认false
+
+custom_class: Dialog 的自定义类名
+
+close_on_click_modal: 是否可以通过点击 modal 关闭 Dialog, 默认true
+
+close_on_press_escape: 是否可以通过按下 ESC 关闭 Dialog, 默认true
+
+show_close: 是否显示关闭按钮, 默认true
+
+### 事件说明
+
+close: Dialog 关闭的回调
+
+updateVisible： 弹窗关闭时，重置为弹窗不显示
+
+toggleScreen: 弹窗最大化及还原时的回调
