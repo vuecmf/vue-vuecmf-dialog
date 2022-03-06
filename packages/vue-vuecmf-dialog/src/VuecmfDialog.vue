@@ -36,7 +36,7 @@ export default defineComponent({
   components: {
     FullScreen, CopyDocument
   },
-  emits:['updateVisible', 'close', 'toggleScreen'],
+  emits:['updateVisible', 'close', 'toggleScreen', 'opened'],
   props: {
     //对话框标题
     title: {
@@ -139,6 +139,7 @@ export default defineComponent({
     //弹窗打开后重置dialog body 高度
     const opened = () => {
       setDlgHeight()
+      ctx.emit('opened')
     }
 
     return {

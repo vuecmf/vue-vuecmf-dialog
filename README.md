@@ -106,8 +106,12 @@ show_close: 是否显示关闭按钮, 默认true
 
 ### 事件说明
 
+opened: Dialog 打开后的回调
+
 close: Dialog 关闭的回调
 
 updateVisible： 弹窗关闭时，重置为弹窗不显示
 
 toggleScreen: 弹窗最大化及还原时的回调
+
+
