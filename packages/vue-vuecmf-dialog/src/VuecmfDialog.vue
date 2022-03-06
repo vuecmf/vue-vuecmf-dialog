@@ -1,6 +1,6 @@
 <template>
 <div ref="vuecmf_dlg_ref">
-  <el-dialog  :center="center"  :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened">
+  <el-dialog  :center="center"  :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
     <template #title>
       <span v-html="title"></span>
       <div class="screen_btn" @click="toggleScreen">
@@ -36,7 +36,7 @@ export default defineComponent({
   components: {
     FullScreen, CopyDocument
   },
-  emits:['updateVisible', 'close', 'toggleScreen', 'opened'],
+  emits:['updateVisible', 'close', 'closed', 'toggleScreen', 'opened', 'open'],
   props: {
     //对话框标题
     title: {
@@ -109,6 +109,11 @@ export default defineComponent({
     //弹窗关闭时，将父组件中重置为弹窗不显示
     const dlgClosed = ():void => {
       ctx.emit('updateVisible', false)
+      ctx.emit('closed')
+    }
+
+    const open = ():void => {
+      ctx.emit('open')
     }
 
     //弹窗关闭时的回调
@@ -150,6 +155,7 @@ export default defineComponent({
       toggleScreen,
       dlgClosed,
       close,
+      open,
       opened
     }
 
