@@ -92,6 +92,11 @@ export default defineComponent({
     center: {
       type: Boolean,
       default: false
+    },
+    //每次打开弹窗都滚动到头部位置
+    scroll_top:{
+      type: Boolean,
+      default: true
     }
   },
   setup(props, ctx){
@@ -100,7 +105,7 @@ export default defineComponent({
 
     //最大化与还原设置
     const fullscreen = ref()
-    const { max_screen, model_value } = toRefs(props)
+    const { max_screen, model_value, scroll_top } = toRefs(props)
     fullscreen.value = max_screen.value
 
     //弹窗是否可见
@@ -144,6 +149,7 @@ export default defineComponent({
     //弹窗打开后重置dialog body 高度
     const opened = () => {
       setDlgHeight()
+      if(scroll_top) scrollbarRef.value.setScrollTop(0)
       ctx.emit('opened')
     }
 

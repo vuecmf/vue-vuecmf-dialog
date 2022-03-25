@@ -104,6 +104,8 @@ close_on_press_escape: 是否可以通过按下 ESC 关闭 Dialog, 默认true
 
 show_close: 是否显示关闭按钮, 默认true
 
+scroll_top: 每次打开弹窗是否滚动到弹窗头部位置， 默认true
+
 ### 事件说明
 
 open: Dialog 打开时的回调
