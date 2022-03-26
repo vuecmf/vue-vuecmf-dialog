@@ -3,7 +3,9 @@
 
   <el-button size="default" type="primary" @click=" showDlg = true " >打开对话框</el-button>
 
-  <vuecmf-dialog :model_value="showDlg" title="标题"  @updateVisible="updateVisible"  @close="close" @toggleScreen="toggleScreen">
+  测试弹窗示例
+
+  <vuecmf-dialog :model_value="showDlg" title="标题"  :close_on_click_modal="false"  @updateVisible="updateVisible"  @close="close" @toggleScreen="toggleScreen">
 
     <template #content>
       <div> 内容开始 </div>

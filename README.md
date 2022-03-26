@@ -1,6 +1,6 @@
 # vue-vuecmf-dialog
 
-> 基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、还原及弹窗主体内容自适应屏幕功能
+> 基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、最小化、还原及弹窗主体内容自适应屏幕功能
 
 - 示例演示： http://www.vuecmf.com
 
@@ -98,13 +98,17 @@ model_value：是否显示对话框， 默认false
 
 custom_class: Dialog 的自定义类名
 
-close_on_click_modal: 是否可以通过点击 modal 关闭 Dialog, 默认true
+close_on_click_modal: 是否可以通过点击 modal 关闭 Dialog, 默认 false
 
 close_on_press_escape: 是否可以通过按下 ESC 关闭 Dialog, 默认true
 
 show_close: 是否显示关闭按钮, 默认true
 
 scroll_top: 每次打开弹窗是否滚动到弹窗头部位置， 默认true
+
+modal: 是否显示遮罩层, 默认 true
+
+append_to_body: Dialog 自身是否插入至 body 元素上。 嵌套的 Dialog 必须指定该属性并赋值为 true,  默认false
 
 ### 事件说明
 

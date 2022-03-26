@@ -1,8 +1,9 @@
 <template>
 <div ref="vuecmf_dlg_ref">
-  <el-dialog  :center="center"  :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
+  <el-dialog  :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
     <template #title>
-      <span v-html="title"></span>
+      <div v-html="title" class="vuecmf_dlg_title"></div>
+      <div class="min_btn" title="最小化" @click="minScreen">—</div>
       <div class="screen_btn" @click="toggleScreen">
         <el-icon title="最大化" v-if=" fullscreen == false "><full-screen /></el-icon>
         <el-icon title="还原" v-else><copy-document /></el-icon>
@@ -76,7 +77,7 @@ export default defineComponent({
     //是否可以通过点击 modal 关闭 Dialog
     close_on_click_modal: {
       type: Boolean,
-      default: true
+      default: false
     },
     //是否可以通过按下 ESC 关闭 Dialog
     close_on_press_escape: {
@@ -97,16 +98,31 @@ export default defineComponent({
     scroll_top:{
       type: Boolean,
       default: true
+    },
+    //是否显示遮罩层
+    modal: {
+      type: Boolean,
+      default: true
+    },
+    //Dialog 自身是否插入至 body 元素上。 嵌套的 Dialog 必须指定该属性并赋值为 true
+    append_to_body: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props, ctx){
     const vuecmf_dlg_ref = ref()
     const scrollbarRef = ref()
+    const dlg_width = ref()  //弹窗初始宽度
+    const dlg_height = ref() //弹窗初始高度
+    const is_min = ref(false) //弹窗是否为最小化
+    const show_modal = ref()  //是否显示遮罩层
 
     //最大化与还原设置
     const fullscreen = ref()
-    const { max_screen, model_value, scroll_top } = toRefs(props)
+    const { max_screen, model_value, scroll_top, modal } = toRefs(props)
     fullscreen.value = max_screen.value
+    show_modal.value = modal.value
 
     //弹窗是否可见
     const dialogVisible = computed(() => model_value.value )
@@ -133,7 +149,20 @@ export default defineComponent({
       let dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
       let dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
 
+      //若是先前是最小化时
+      if(is_min.value){
+        dlg.style.width = dlg_width.value
+        dlg.style.height = dlg_height.value
+        dlg_body.style.display = 'block'
+        dlg_footer.style.display = 'block'
+        vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = 'block'
+        vuecmf_dlg_ref.value.querySelector('.vuecmf_dlg_title').style.width = '90%'
+      }
+
       dlg_body.style.height = (document.documentElement.clientHeight - dlg.offsetTop*2 - dlg_header.clientHeight - dlg_footer.clientHeight - 24) + 'px'
+
+      is_min.value = false
+      show_modal.value = true
     }
 
     //最大化与还原操作事件
@@ -144,6 +173,34 @@ export default defineComponent({
         scrollbarRef.value.update()
         ctx.emit('toggleScreen', fullscreen.value)
       }, 100)
+    }
+
+    //最小化操作事件
+    const minScreen = ():void => {
+      let dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
+      let dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
+      let dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
+
+      //保存弹窗初始宽度及高度
+      dlg_width.value = dlg.style.width
+      dlg_height.value = dlg.style.height
+
+      dlg.style.width = '150px'
+      dlg.style.height = '40px'
+
+      dlg_body.style.display = 'none'
+      dlg_footer.style.display = 'none'
+      vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = 'none'
+      vuecmf_dlg_ref.value.querySelector('.vuecmf_dlg_title').style.width = '70px'
+
+      is_min.value = true
+      show_modal.value = false
+      fullscreen.value = true
+
+      setTimeout(() => {
+        vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog').parentNode.style.zIndex = -999
+      }, 100)
+
     }
 
     //弹窗打开后重置dialog body 高度
@@ -158,7 +215,9 @@ export default defineComponent({
       scrollbarRef,
       fullscreen,
       dialogVisible,
+      show_modal,
       toggleScreen,
+      minScreen,
       dlgClosed,
       close,
       open,
@@ -184,15 +243,32 @@ export default defineComponent({
   font-size: 15px !important;;
   line-height: 16px !important;;
 }
-.screen_btn {
+.vuecmf_dlg_title{
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.min_btn, .screen_btn {
   color: var(--el-color-info);
   position: absolute;
-  right: 26px;
   top: 12px;
   cursor: pointer;
   font-size: 13px;
+  width: 22px;
+  text-align: center;
+  height: 18px;
 }
-.screen_btn:hover{
+.min_btn{
+  right: 52px;
+  font-size: 8px;
+  line-height: 12px;
+}
+.screen_btn {
+  right: 22px;
+}
+.min_btn:hover, .screen_btn:hover{
   color: var(--el-color-primary);
 }
 
