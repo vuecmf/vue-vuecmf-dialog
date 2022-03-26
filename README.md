@@ -37,7 +37,7 @@ createApp(App).use(VuecmfDialog).mount('#app')
   <vuecmf-dialog :model_value="showDlg" title="标题"  @updateVisible="updateVisible"  @close="close" @toggleScreen="toggleScreen">
 
     <template #content>
-      <div> 这是一个可以最大化及还原的 对话框</div>
+      <div> 这是一个可以最大化、最小化及还原的 对话框</div>
     </template>
 
     <template #footer>

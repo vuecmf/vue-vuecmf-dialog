@@ -1,24 +1,24 @@
 <template>
-<div ref="vuecmf_dlg_ref">
-  <el-dialog  :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
-    <template #title>
-      <div v-html="title" class="vuecmf_dlg_title"></div>
-      <div class="min_btn" title="最小化" @click="minScreen">—</div>
-      <div class="screen_btn" @click="toggleScreen">
-        <el-icon title="最大化" v-if=" fullscreen == false "><full-screen /></el-icon>
-        <el-icon title="还原" v-else><copy-document /></el-icon>
-      </div>
-    </template>
+  <div ref="vuecmf_dlg_ref">
+    <el-dialog  :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
+      <template #title>
+        <div v-html="title" class="vuecmf_dlg_title"></div>
+        <div class="min_btn" title="最小化" @click="minScreen">—</div>
+        <div class="screen_btn" @click="toggleScreen">
+          <el-icon title="最大化" v-if=" fullscreen == false "><full-screen /></el-icon>
+          <el-icon title="还原" v-else><copy-document /></el-icon>
+        </div>
+      </template>
 
-    <el-scrollbar ref="scrollbarRef">
-      <slot name="content"></slot>
-    </el-scrollbar>
+      <el-scrollbar ref="scrollbarRef">
+        <slot name="content"></slot>
+      </el-scrollbar>
 
-    <template #footer>
-      <slot name="footer" ></slot>
-    </template>
-  </el-dialog>
-</div>
+      <template #footer>
+        <slot name="footer" ></slot>
+      </template>
+    </el-dialog>
+  </div>
 
 </template>
 
@@ -157,6 +157,11 @@ export default defineComponent({
         dlg_footer.style.display = 'block'
         vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = 'block'
         vuecmf_dlg_ref.value.querySelector('.vuecmf_dlg_title').style.width = '90%'
+        const overlay_dlg = vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog')
+        overlay_dlg.style.width = '100%'
+        overlay_dlg.style.height = '100%'
+        overlay_dlg.parentNode.style.width = '100%'
+        overlay_dlg.parentNode.style.height = '100%'
       }
 
       dlg_body.style.height = (document.documentElement.clientHeight - dlg.offsetTop*2 - dlg_header.clientHeight - dlg_footer.clientHeight - 24) + 'px'
@@ -197,9 +202,15 @@ export default defineComponent({
       show_modal.value = false
       fullscreen.value = true
 
-      setTimeout(() => {
-        vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog').parentNode.style.zIndex = -999
-      }, 100)
+      const overlay_dlg = vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog')
+      overlay_dlg.style.width = '150px'
+      overlay_dlg.style.height = '40px'
+      overlay_dlg.parentNode.style.width = '150px'
+      overlay_dlg.parentNode.style.height = '40px'
+      overlay_dlg.style.top = 'auto'
+      overlay_dlg.style.bottom = 0
+      overlay_dlg.parentNode.style.top = 'auto'
+      overlay_dlg.parentNode.style.bottom = 0
 
     }
 
