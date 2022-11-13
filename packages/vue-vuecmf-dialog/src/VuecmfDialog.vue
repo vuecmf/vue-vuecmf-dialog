@@ -242,7 +242,8 @@ export default defineComponent({
 <style lang="scss">
 .el-dialog__header{
   padding: 10px 15px 0 !important;
-  position: relative !important;;
+  position: relative !important;
+  margin-right: 0 !important;
 }
 .el-dialog__headerbtn{
   top: 10px !important;;
@@ -277,7 +278,7 @@ export default defineComponent({
   line-height: 12px;
 }
 .screen_btn {
-  right: 22px;
+  right: 30px;
 }
 .min_btn:hover, .screen_btn:hover{
   color: var(--el-color-primary);
