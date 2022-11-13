@@ -3,11 +3,11 @@
     <el-dialog destroy-on-close :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
       <template #title>
         <div v-html="title" class="vuecmf_dlg_title"></div>
-        <div class="min_btn" title="最小化" @click="minScreen">—</div>
-        <div class="screen_btn" @click="toggleScreen">
+        <el-button class="el-dialog__headerbtn min_btn" title="最小化" @click="minScreen">—</el-button>
+        <el-button class="el-dialog__headerbtn screen_btn" @click="toggleScreen">
           <el-icon title="最大化" v-if=" fullscreen == false "><full-screen /></el-icon>
           <el-icon title="还原" v-else><copy-document /></el-icon>
-        </div>
+        </el-button>
       </template>
 
       <el-scrollbar ref="scrollbarRef">
@@ -246,14 +246,14 @@ export default defineComponent({
   margin-right: 0 !important;
 }
 .el-dialog__headerbtn{
-  top: 10px !important;;
-  right: 10px !important;;
-  width: 22px !important;;
-  height: 22px !important;;
+  top: 10px !important;
+  right: 10px !important;
+  width: 22px !important;
+  height: 22px !important;
 }
 .el-dialog__title{
-  font-size: 15px !important;;
-  line-height: 16px !important;;
+  font-size: 15px !important;
+  line-height: 16px !important;
 }
 .vuecmf_dlg_title{
   width: 90%;
@@ -263,25 +263,30 @@ export default defineComponent({
 }
 
 .min_btn, .screen_btn {
-  color: var(--el-color-info);
+  border: 0 !important;
+  color: var(--el-color-info) !important;
   position: absolute;
-  top: 12px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 13px !important;
+  top: 9px !important;
   width: 22px;
   text-align: center;
   height: 18px;
 }
 .min_btn{
-  right: 52px;
-  font-size: 8px;
-  line-height: 12px;
+  right: 52px !important;
 }
 .screen_btn {
-  right: 30px;
+  right: 30px !important;
 }
 .min_btn:hover, .screen_btn:hover{
-  color: var(--el-color-primary);
+  color: var(--el-color-primary) !important;
+  background: #fff !important;
+}
+
+.screen_btn:active, .screen_btn:link, .screen_btn:visited, .screen_btn:focus{
+  background: #fff !important;
+  color: var(--el-color-info) !important;
 }
 
 .el-dialog__body{
