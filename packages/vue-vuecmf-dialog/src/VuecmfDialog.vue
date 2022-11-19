@@ -155,7 +155,7 @@ export default defineComponent({
         dlg.style.height = dlg_height.value
         dlg_body.style.display = 'block'
         dlg_footer.style.display = 'block'
-        vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = 'block'
+        vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = ''
         vuecmf_dlg_ref.value.querySelector('.vuecmf_dlg_title').style.width = '90%'
         const overlay_dlg = vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog')
         overlay_dlg.style.width = '100%'
@@ -246,10 +246,12 @@ export default defineComponent({
   margin-right: 0 !important;
 }
 .el-dialog__headerbtn{
-  top: 10px !important;
+  top: 8px !important;
   right: 10px !important;
   width: 22px !important;
   height: 22px !important;
+  font-size: 18px !important;
+  text-align: center;
 }
 .el-dialog__title{
   font-size: 15px !important;
@@ -267,17 +269,16 @@ export default defineComponent({
   color: var(--el-color-info) !important;
   position: absolute;
   cursor: pointer;
-  font-size: 13px !important;
-  top: 9px !important;
-  width: 22px;
-  text-align: center;
-  height: 18px;
+  font-size: 14px !important;
+  top: 6px !important;
 }
 .min_btn{
-  right: 52px !important;
+  right: 56px !important;
+
 }
 .screen_btn {
   right: 30px !important;
+
 }
 .min_btn:hover, .screen_btn:hover{
   color: var(--el-color-primary) !important;
