@@ -144,10 +144,10 @@ export default defineComponent({
 
     //设置对话框body高度
     const setDlgHeight = ():void => {
-      let dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
-      let dlg_header = vuecmf_dlg_ref.value.querySelector('.el-dialog__header')
-      let dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
-      let dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
+      const dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
+      const dlg_header = vuecmf_dlg_ref.value.querySelector('.el-dialog__header')
+      const dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
+      const dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
 
       //若是先前是最小化时
       if(is_min.value){
@@ -182,9 +182,9 @@ export default defineComponent({
 
     //最小化操作事件
     const minScreen = ():void => {
-      let dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
-      let dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
-      let dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
+      const dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
+      const dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
+      const dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
 
       //保存弹窗初始宽度及高度
       dlg_width.value = dlg.style.width
@@ -217,7 +217,7 @@ export default defineComponent({
     //弹窗打开后重置dialog body 高度
     const opened = () => {
       setDlgHeight()
-      if(scroll_top) scrollbarRef.value.setScrollTop(0)
+      if(scroll_top.value) scrollbarRef.value.setScrollTop(0)
       ctx.emit('opened')
     }
 
