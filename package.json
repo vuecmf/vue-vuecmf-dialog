@@ -1,6 +1,6 @@
 {
   "name": "vue-vuecmf-dialog",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、最小化、还原及弹窗主体自适应屏幕功能",
   "main": "packages/index.ts",
   "keyword": "vue-vuecmf-dialog vuecmf-dialog vuecmf vue3 dialog 弹窗组件",
@@ -17,11 +17,11 @@
     "url": "git+https://gitee.com/emei/vue-vuecmf-dialog.git"
   },
   "dependencies": {
-    "@element-plus/icons": "^0.0.11",
-    "core-js": "^3.6.5",
-    "element-plus": "^2.2.21",
-    "register-service-worker": "^1.7.1",
-    "vue": "^3.2.0"
+    "@element-plus/icons-vue": "^2.0.10",
+    "core-js": "^3.28.0",
+    "element-plus": "^2.2.30",
+    "register-service-worker": "^1.7.2",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",

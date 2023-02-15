@@ -1,11 +1,11 @@
 <template>
   <div ref="vuecmf_dlg_ref">
     <el-dialog destroy-on-close :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
-      <template #title>
+      <template #header>
         <div v-html="title" class="vuecmf_dlg_title"></div>
         <el-button class="el-dialog__headerbtn min_btn" title="最小化" @click="minScreen">—</el-button>
         <el-button class="el-dialog__headerbtn screen_btn" @click="toggleScreen">
-          <el-icon title="最大化" v-if=" fullscreen == false "><full-screen /></el-icon>
+          <el-icon title="最大化" v-if=" fullscreen === false "><full-screen /></el-icon>
           <el-icon title="还原" v-else><copy-document /></el-icon>
         </el-button>
       </template>
@@ -274,10 +274,10 @@ export default defineComponent({
 }
 .min_btn{
   right: 56px !important;
-
+  top: 5px !important;
 }
 .screen_btn {
-  right: 30px !important;
+  right: 32px !important;
 
 }
 .min_btn:hover, .screen_btn:hover{
