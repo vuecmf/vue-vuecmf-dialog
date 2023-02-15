@@ -1,6 +1,6 @@
 <template>
   <div ref="vuecmf_dlg_ref">
-    <el-dialog destroy-on-close :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :custom-class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
+    <el-dialog destroy-on-close :center="center" :modal="show_modal" :show-close="show_close" :close-on-press-escape="close_on_press_escape" :close-on-click-modal="close_on_click_modal" :class="custom_class" :fullscreen="fullscreen" :draggable="true"  :width="width" :top="top" :append-to-body="append_to_body"  :model-value="dialogVisible"  @close="close"  @closed="dlgClosed" @opened="opened" @open="open">
       <template #header>
         <div v-html="title" class="vuecmf_dlg_title"></div>
         <el-button class="el-dialog__headerbtn min_btn" title="最小化" @click="minScreen">—</el-button>
