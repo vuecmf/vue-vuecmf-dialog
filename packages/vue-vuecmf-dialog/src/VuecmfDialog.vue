@@ -164,7 +164,10 @@ export default defineComponent({
         overlay_dlg.parentNode.style.height = '100%'
       }
 
-      dlg_body.style.height = (document.documentElement.clientHeight - dlg.offsetTop*2 - dlg_header.clientHeight - dlg_footer.clientHeight - 24) + 'px'
+      const dlg_header_h = dlg_header != null ? dlg_header.clientHeight : 0
+      const dlg_footer_h = dlg_footer != null ? dlg_footer.clientHeight : 0
+
+      dlg_body.style.height = (document.documentElement.clientHeight - dlg.offsetTop*2 - dlg_header_h - dlg_footer_h - 24) + 'px'
 
       is_min.value = false
       show_modal.value = true
