@@ -1,8 +1,15 @@
 # vue-vuecmf-dialog
 
-> 基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、最小化、还原及弹窗主体内容自适应屏幕功能
+> 基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、最小化、还原、拖拽缩放窗口及弹窗主体内容自适应屏幕功能
 
 - 示例演示： http://www.vuecmf.com
+
+## 注意
+### 1、打包方式变更
+v2版本开始使用vite方式打包，原v1版本使用的是webpack方式打包
+### 2、新增功能
+新增双击标题栏时最大化及还原弹窗；鼠标放在弹窗四边和四角处进行拖拽，即可以拉伸来缩放弹窗大小。
+
 
 ## 安装
 
@@ -18,7 +25,6 @@ npm install vue-vuecmf-dialog
 ```
 import { createApp } from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
 
 /*导入组件*/
 import VuecmfDialog from "vue-vuecmf-dialog"
@@ -37,7 +43,7 @@ createApp(App).use(VuecmfDialog).mount('#app')
   <vuecmf-dialog :model_value="showDlg" title="标题"  @updateVisible="updateVisible"  @close="close" @toggleScreen="toggleScreen">
 
     <template #content>
-      <div> 这是一个可以最大化、最小化及还原的 对话框</div>
+      <div> 这是一个可以最大化、最小化、拖拽缩放及还原的对话框</div>
     </template>
 
     <template #footer>

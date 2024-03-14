@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
 
+import App from './App.vue'
 import VuecmfDialog from "../packages/index"
 
-createApp(App).use(VuecmfDialog).mount('#app')
-
+const app = createApp(App)
+app.use(VuecmfDialog)
+app.mount('#app')
