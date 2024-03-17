@@ -283,19 +283,19 @@ export default defineComponent({
 });
 
 </script>
-<style lang="scss">
-.el-dialog{
+
+<style lang="scss" scoped>
+:deep(.el-dialog) {
   padding: 9px 12px 15px !important;
 }
-.el-dialog__header{ padding-bottom: 12px !important;}
-.el-dialog__body{
+:deep(.el-dialog__header){ padding-bottom: 12px !important;}
+:deep(.el-dialog__body){
   padding: 0 !important;
   margin: 0 !important;
   overflow-y: auto;
 }
-.el-dialog__footer{ padding: 0 !important; }
-</style>
-<style lang="scss" scoped>
+:deep(.el-dialog__footer){ padding: 0 !important; }
+
 .vuecmf_dlg_header{
   padding: 0 !important;
   position: relative !important;
