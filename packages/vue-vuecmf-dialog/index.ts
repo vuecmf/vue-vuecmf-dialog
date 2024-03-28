@@ -6,8 +6,9 @@
 // | Author: emei8 <2278667823@qq.com>
 // +----------------------------------------------------------------------
 
+// @ts-ignore
 import VuecmfDialog from './src/VuecmfDialog.vue'
-import {App, Component} from 'vue'
+import type {App, Component} from 'vue'
 import 'element-plus/dist/index.css'
 import { components } from './src/element'
 

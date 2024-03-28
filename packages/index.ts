@@ -7,7 +7,7 @@
 // +----------------------------------------------------------------------
 
 import VuecmfDialog from './vue-vuecmf-dialog'
-import { App } from 'vue'
+import type { App } from 'vue'
 
 // 存储组件列表
 const components = [
