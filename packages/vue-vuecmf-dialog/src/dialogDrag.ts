@@ -15,6 +15,15 @@ function updateDlgBodyHeight(el){
     dlg_body.style.height = (dlgDom.clientHeight - dlg_header.clientHeight - dlg_footer.clientHeight - 24) + 'px'
 }
 
+//取消选中文本
+function cancelSelect(e) {
+    if (window.getSelection().toString()) {
+        window.getSelection().removeAllRanges();
+        e.preventDefault();
+        return false;
+    }
+}
+
 export default {
     bind(el, binding, vnode, oldVnode) {
         //弹框可拉伸最小宽高
@@ -22,6 +31,7 @@ export default {
         let minHeight = 80;
 
         const dlgDom = el.querySelector('.el-dialog');
+        if(dlgDom == null) return
 
         //左上角,鼠标拉伸弹窗
         let dragTl = dlgDom.querySelector('.drag_tl')
@@ -32,9 +42,9 @@ export default {
             let dlgH = dlgDom.clientHeight;
             let dlgOffsetLeft = dlgDom.offsetLeft;
             let dlgOffsetTop = dlgDom.offsetTop;
-
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 dlgDom.style.marginLeft = dlgOffsetLeft - (clientX - e.clientX) + 'px';
                 dlgDom.style.marginTop = dlgOffsetTop - (clientY - e.clientY) + 'px';
                 if(dlgW + (clientX - e.clientX) > minWidth){
@@ -61,9 +71,9 @@ export default {
             let dlgH = dlgDom.clientHeight;
             let dlgOffsetLeft = dlgDom.offsetLeft;
             let dlgOffsetTop = dlgDom.offsetTop;
-
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 dlgDom.style.marginLeft = dlgOffsetLeft + 'px';
                 dlgDom.style.marginTop = dlgOffsetTop - (clientY - e.clientY) + 'px';
                 if(dlgW + (e.clientX - clientX) > minWidth){
@@ -89,9 +99,9 @@ export default {
             let dlgW = dlgDom.clientWidth;
             let dlgH = dlgDom.clientHeight;
             let dlgOffsetLeft = dlgDom.offsetLeft;
-
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 dlgDom.style.marginLeft = dlgOffsetLeft + 'px';
                 if(dlgW + (e.clientX - clientX) > minWidth){
                     dlgDom.style.width = dlgW + (e.clientX - clientX) + 'px';
@@ -116,9 +126,9 @@ export default {
             let dlgW = dlgDom.clientWidth;
             let dlgH = dlgDom.clientHeight;
             let dlgOffsetLeft = dlgDom.offsetLeft;
-
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 dlgDom.style.marginLeft = dlgOffsetLeft - (clientX - e.clientX) + 'px';
                 if(dlgW + (clientX - e.clientX) > minWidth){
                     dlgDom.style.width = dlgW + (clientX - e.clientX) + 'px';
@@ -143,6 +153,7 @@ export default {
             let clientX = e.clientX;
             document.onmousemove = function (e) {
                 e.preventDefault(); // 禁用默认事件
+                cancelSelect(e)
                 if(dlgW + (e.clientX - clientX) > minWidth){
                     dlgDom.style.marginLeft = dlgOffsetLeft + 'px';
                     dlgDom.style.width = dlgW + (e.clientX - clientX) + 'px';
@@ -164,6 +175,7 @@ export default {
             let clientX = e.clientX;
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 if(dlgW + (clientX - e.clientX) > minWidth){
                     dlgDom.style.width = dlgW + (clientX - e.clientX) + 'px';
                     dlgDom.style.marginLeft = dlgOffsetLeft - (clientX - e.clientX) + 'px';
@@ -185,6 +197,7 @@ export default {
             let dlgOffsetTop = dlgDom.offsetTop;
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 if(dlgH + (clientY - e.clientY) > minHeight){
                     dlgDom.style.height = dlgH + (clientY - e.clientY) + 'px';
                     dlgDom.style.marginTop = dlgOffsetTop - (clientY - e.clientY) + 'px';
@@ -205,6 +218,7 @@ export default {
             let dlgH = dlgDom.clientHeight;
             document.onmousemove = function (e) {
                 e.preventDefault(); //禁用默认事件
+                cancelSelect(e)
                 if(dlgH - (clientY - e.clientY) > minHeight ){
                     dlgDom.style.height = dlgH + (e.clientY - clientY) + 'px';
                 }
