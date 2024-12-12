@@ -1,6 +1,6 @@
 {
   "name": "vue-vuecmf-dialog",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "基于vue3、Element Plus和TypeScript的弹窗组件，支持最大化、最小化、还原、拖拽缩放窗口及弹窗主体自适应屏幕功能",
   "main": "packages/index.ts",
   "keyword": "vue-vuecmf-dialog vuecmf-dialog vuecmf vue3 dialog 弹窗组件",
