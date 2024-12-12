@@ -175,22 +175,34 @@ export default defineComponent({
       }, 100)
     }
 
+    const getDlgEl = () => {
+      let dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
+      if(!dlg){
+        dlg = document.body.querySelector('.el-dialog')
+      }
+      return dlg
+    }
+
+
     //初始化弹窗相关参数
     const initDlg = ():void => {
       //保存当前弹窗的 width、height、marginTop、marginLeft
-      const dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
-      dlg_width.value = dlg.clientWidth
-      dlg_height.value = dlg.clientHeight
-      dlg_margin_top.value = dlg.offsetTop
-      dlg_margin_left.value = dlg.offsetLeft
+      const dlg = getDlgEl()
+      if(dlg){
+        dlg_width.value = dlg.clientWidth
+        dlg_height.value = dlg.clientHeight
+        dlg_margin_top.value = dlg.offsetTop
+        dlg_margin_left.value = dlg.offsetLeft
+      }
+
       scrollbarRef.value.update()
     }
 
     //最小化操作事件
     const minScreen = ():void => {
-      const dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
-      const dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
-      const dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
+      const dlg = getDlgEl()
+      const dlg_body = dlg.querySelector('.el-dialog__body')
+      const dlg_footer = dlg.querySelector('.el-dialog__footer')
 
       dlg.style.left = 0
       dlg.style.top = 0
@@ -202,12 +214,12 @@ export default defineComponent({
 
       dlg_body.style.display = 'none'
       dlg_footer.style.display = 'none'
-      vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = 'none'
-      vuecmf_dlg_ref.value.querySelector('.vuecmf_dlg_title').style.width = '70px'
+      dlg.querySelector('.min_btn').style.display = 'none'
+      dlg.querySelector('.vuecmf_dlg_title').style.width = '70px'
 
       fullscreen.value = true
 
-      const overlay_dlg = vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog')
+      const overlay_dlg = dlg.parentElement
       overlay_dlg.style.width = '180px'
       overlay_dlg.style.height = '40px'
       overlay_dlg.style.overflow = 'hidden'
@@ -221,22 +233,24 @@ export default defineComponent({
 
     //设置对话框body高度
     const resizeDlg = ():void => {
-      const dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
-      const dlg_header = vuecmf_dlg_ref.value.querySelector('.el-dialog__header')
-      const dlg_body = vuecmf_dlg_ref.value.querySelector('.el-dialog__body')
-      const dlg_footer = vuecmf_dlg_ref.value.querySelector('.el-dialog__footer')
+      const dlg = getDlgEl()
+      const dlg_header = dlg.querySelector('.el-dialog__header')
+      const dlg_body = dlg.querySelector('.el-dialog__body')
+      const dlg_footer = dlg.querySelector('.el-dialog__footer')
 
       //双击头部事件
-      dlg_header.ondblclick = (e) => {
-        toggleScreen()
+      if(dlg_header){
+        dlg_header.ondblclick = (e) => {
+          toggleScreen()
+        }
       }
 
       dlg.style.border = '0'
       dlg_body.style.display = 'block'
       dlg_footer.style.display = 'block'
-      vuecmf_dlg_ref.value.querySelector('.min_btn').style.display = ''
+      dlg.querySelector('.min_btn').style.display = ''
 
-      const overlay_dlg = vuecmf_dlg_ref.value.querySelector('.el-overlay-dialog')
+      const overlay_dlg = dlg.parentElement
       overlay_dlg.style.width = '100%'
       overlay_dlg.style.height = '100%'
       overlay_dlg.parentNode.style.width = '100%'
@@ -276,6 +290,10 @@ export default defineComponent({
     //在模板中启用v-drag
     drag: {
       updated(el, binding, vnode, prevVnode) {
+        if(el.innerHTML === '<!--teleport start--><!--teleport end-->'){
+          el = document.body.querySelector('.el-overlay-dialog')
+        }
+
         drag.bind(el, binding, vnode, prevVnode)
       },
     }
@@ -301,7 +319,7 @@ export default defineComponent({
   position: relative !important;
   margin-right: 0 !important;
   display: flex !important;
-  justify-content: space-between;
+  justify-content: space-between; align-content: center;
 }
 .btn-group{
   width: 100px;
