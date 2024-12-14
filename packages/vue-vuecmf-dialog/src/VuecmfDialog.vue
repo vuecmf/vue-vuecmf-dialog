@@ -175,6 +175,7 @@ export default defineComponent({
       }, 100)
     }
 
+    //获取弹窗元素
     const getDlgEl = () => {
       let dlg = vuecmf_dlg_ref.value.querySelector('.el-dialog')
       if(!dlg){
@@ -290,6 +291,7 @@ export default defineComponent({
     //在模板中启用v-drag
     drag: {
       updated(el, binding, vnode, prevVnode) {
+        // 处理teleport组件
         if(el.innerHTML === '<!--teleport start--><!--teleport end-->'){
           el = document.body.querySelector('.el-overlay-dialog')
         }
